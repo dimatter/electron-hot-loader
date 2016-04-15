@@ -25,7 +25,7 @@ function higherOrderVisitor (traverse, node, path, state) {
 
 higherOrderVisitor.test = function (node, path, state) {
   return (
-    state.g.needed && state.g.opts.higherOrderFunctions.length > 0 && // && state.g.opts.needed
+    state.g.opts.higherOrderFunctions && state.g.opts.higherOrderFunctions.length > 0 &&
     node.type === 'CallExpression' &&
     isCalleeHigherOrder(node, state) &&
     node.arguments.length > 0

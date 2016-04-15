@@ -24,7 +24,7 @@ function transform (filename, source, options) {
     visitors = visitors
       // .concat(classVisitor)
       .concat(coffeeScriptClassVisitor)
-      // .concat(higherOrderVisitor)
+      .concat(higherOrderVisitor)
       // .concat(requireVisitor)
       .concat(coffeeScriptCustomRequire)
       .concat(topLevelVisitor)
