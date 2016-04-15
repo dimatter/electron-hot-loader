@@ -1,7 +1,7 @@
 'use strict';
 
-var utils = require('jstransform/src/utils');
-
+const utils = require('jstransform/src/utils');
+const _utils = require('./utils')
 function higherOrderVisitor (traverse, node, path, state) {
   const componentArgs = findArgumentWhichMightBeComponent(node, state);
 
@@ -9,6 +9,10 @@ function higherOrderVisitor (traverse, node, path, state) {
     return true;
   }
 
+  if (path[0].type  == 'AssignmentExpression') {
+    const exclude = path[0].left.name ? path[0].left.name : path[0].right.arguments[0].name
+    _utils.addToNotWrap(exclude)
+  }
   componentArgs.forEach(component => {
     utils.catchup(component.arg.range[0], state);
     utils.append('__electronHot__.register(', state);
@@ -21,7 +25,7 @@ function higherOrderVisitor (traverse, node, path, state) {
 
 higherOrderVisitor.test = function (node, path, state) {
   return (
-    state.g.opts.higherOrderFunctions && state.g.opts.higherOrderFunctions.length > 0 &&
+    state.g.needed && state.g.opts.higherOrderFunctions.length > 0 && // && state.g.opts.needed
     node.type === 'CallExpression' &&
     isCalleeHigherOrder(node, state) &&
     node.arguments.length > 0
