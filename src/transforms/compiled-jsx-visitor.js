@@ -8,8 +8,8 @@ function classVisitor (traverse, node, path, state) {
   const nameObject = path[0].arguments[0]
   const requirePath = state.g.requireNodesMap &&
   state.g.requireNodesMap[nameObject.name];
-  if (state.g.opts.doNotInstrument !== true && requirePath &&
-    !globalUtils.doNotWrap[nameObject.name]) {
+  if (state.g.opts.doNotInstrument !== true && requirePath && true) {
+    // !globalUtils.doNotWrap[nameObject.name]) {
     utility.append('React.createElement(', state);
     utility.append('__electronHot__.register(', state);
     utility.move(nameObject.range[0], state);

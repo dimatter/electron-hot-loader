@@ -24,7 +24,7 @@ function transform (filename, source, options) {
     visitors = visitors
       // .concat(classVisitor)
       .concat(coffeeScriptClassVisitor)
-      .concat(higherOrderVisitor)
+      // .concat(higherOrderVisitor)
       // .concat(requireVisitor)
       .concat(coffeeScriptCustomRequire)
       .concat(topLevelVisitor)
@@ -46,7 +46,7 @@ function transform (filename, source, options) {
   } else {
     result = jstransform.transform(visitors, source, options);
   }
-  console.log(result.code);
+  console.log(filename, result.code);
   // debugger
   return result.code;
 }
